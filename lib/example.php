@@ -3,15 +3,13 @@
  * Copyright (c) 2014 - 2016. ООО "БАРС - 46"
  */
 
-namespace Bars46\NSTree;
+namespace Citrus\NSTree;
 
-use Bars46\NSTree;
-
-class NSTestTable extends NSTree\NSDataManager {
+class ExampleTable extends DataManager {
 
     public static function getTableName()
     {
-        return 'test_tree';
+        return 'example';
     }
 
     public static function getMap()

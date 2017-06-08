@@ -1,17 +1,17 @@
-# Модуль bars46.nstree
-Модуль содержит класс **NSDataManager**, унаследованный от Bitrix\Main\Entity\DataManager, позволяющий работать с деревьями Nested Set через API ORM Битрикс.
+# Библиотека citrus/nstree
 
-Для работы с деревом необходимо создать класс-наследник от NSDataManager. 
+Содержит класс `Citrus\NSTree\DataManager`, унаследованный от `Bitrix\Main\Entity\DataManager`, позволяющий работать с деревьями Nested Set через API ORM Битрикс.
 
-Метод getMap() обязательно должен содержать поля:
-<ul>
-<li>ID - Идентификатор записи, первичный ключ</li>
-<li>PARENT_ID - Идентификатор родительской записи</li>
-<li>LEFT_MARGIN - левый ключ</li>
-<li>RIGHT_MARGIN - правый ключ</li>
-<li>DEPTH_LEVEL - уровень вложенности</li>
-<li>SORT - сортировка</li>
-</ul>
+Для работы с деревом необходимо создать класс-наследник от `Citrus\NSTree\DataManager`. 
+
+Метод `getMap()` обязательно должен содержать поля:
+
+* ID - Идентификатор записи, первичный ключ
+* PARENT_ID - Идентификатор родительской записи
+* LEFT_MARGIN - левый ключ
+* RIGHT_MARGIN - правый ключ
+* DEPTH_LEVEL - уровень вложенности
+* SORT - сортировка
 
 Дополнительно поддерживаютя поля:
 
@@ -20,11 +20,12 @@
 
 ## Примеры
 
-Пример ORM-класса находится в файле lib/nstest.php
+Пример ORM-класса находится в файле `lib/example.php`
 
 ### Добавление новой записи в корень дерева
+
 ```php
-Bars46\NSTree\NSTestTable::add(
+Citrus\NSTree\ExampleTable::add(
     array(
         'NAME' => 'ROOT ROW'
     )
@@ -34,7 +35,7 @@ Bars46\NSTree\NSTestTable::add(
 ### Добавление записи в существующую ветку
 
 ```php
-Bars46\NSTree\NSTestTable::add(
+Citrus\NSTree\ExampleTable::add(
     array(
         'PARENT_ID' => $parent_node_id,
         'NAME' => 'CHILD ROW'
@@ -45,7 +46,7 @@ Bars46\NSTree\NSTestTable::add(
 ### Перемещение записи или целой ветки в новую ветку
 
 ```php
-Bars46\NSTree\NSTestTable::update(
+Citrus\NSTree\ExampleTable::update(
     $id,
     array(
         'PARENT_ID' => $new_parent_node_id
@@ -56,7 +57,7 @@ Bars46\NSTree\NSTestTable::update(
 ### Получение всего упорядоченного дерева, начиная от корня
 
 ```php
-$res = Bars46\NSTree\NSTestTable::getList(
+$res = Citrus\NSTree\ExampleTable::getList(
     array(
         'select' => array(
             'ID',
@@ -72,7 +73,7 @@ $res = Bars46\NSTree\NSTestTable::getList(
 ### Получение только корневых элементов
 
 ```php
-$res = Bars46\NSTree\NSTestTable::getList(
+$res = Citrus\NSTree\ExampleTable::getList(
     array(
         'select' => array(
             'ID',
@@ -91,7 +92,7 @@ $res = Bars46\NSTree\NSTestTable::getList(
 ### Получение всех потомков конкретной ветки дерева
 
 ```php
-$node = Bars46\NSTree\NSTestTable::getRow(
+$node = Citrus\NSTree\ExampleTable::getRow(
     array(
         'select' => array(
             'LEFT_MARGIN',
@@ -102,7 +103,7 @@ $node = Bars46\NSTree\NSTestTable::getRow(
         )
     )
 );
-$res = Bars46\NSTree\NSTestTable::getList(
+$res = Citrus\NSTree\ExampleTable::getList(
     array(
         'select' => array(
             'ID',
@@ -122,7 +123,7 @@ $res = Bars46\NSTree\NSTestTable::getList(
 ### Получение всех предков конкретной ветки дерева
 
 ```php
-$node = Bars46\NSTree\NSTestTable::getRow(
+$node = Citrus\NSTree\ExampleTable::getRow(
     array(
         'select' => array(
             'LEFT_MARGIN',
@@ -133,7 +134,7 @@ $node = Bars46\NSTree\NSTestTable::getRow(
         )
     )
 );
-$res = Bars46\NSTree\NSTestTable::getList(
+$res = Citrus\NSTree\ExampleTable::getList(
     array(
         'select' => array(
             'ID',
@@ -157,9 +158,9 @@ $res = Bars46\NSTree\NSTestTable::getList(
 
 ```php
 $connection = Bitrix\Main\Application::getConnection();
-Bars46\NSTree\NSTestTable::lockTable();
+Citrus\NSTree\ExampleTable::lockTable();
 try {
-    Bars46\NSTree\NSTestTable::add(
+    Citrus\NSTree\ExampleTable::add(
         array(
             'PARENT_ID' => $parent_node_id,
             'NAME' => 'CHILD ROW'
@@ -168,7 +169,7 @@ try {
     $connection->commitTransaction();
 } catch (\Exception $e) {
     $connection->rollbackTransaction();
-    Bars46\NSTree\NSTestTable::unlockTable();
+    Citrus\NSTree\ExampleTable::unlockTable();
     echo($e->getMessage() . "\n");
 }
 ```

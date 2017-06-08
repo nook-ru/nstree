@@ -1,9 +1,10 @@
 <?php
 /**
  * Copyright (c) 2014 - 2016. ООО "БАРС - 46"
+ * Copyright (c) 2017. ООО Компания «Цитрус»
  */
 
-namespace Bars46\NSTree;
+namespace Citrus\NSTree;
 
 use Bitrix\Main;
 use Bitrix\Main\Entity;
@@ -12,20 +13,19 @@ use Bitrix\Main\Localization\Loc;
 Loc::loadMessages(__FILE__);
 
 /**
- * Class NSDataManager
  * Класс для работы с деревьями nested sets
  *
- * @package Bars46\NSTree
+ * @package Citrus\NSTree
  */
-class NSDataManager extends Entity\DataManager
+class DataManager extends Entity\DataManager
 {
     /**
-     * @var array - Массив флагов установки обработчиков событий
+     * @var array Массив флагов установки обработчиков событий
      */
     protected static $eventHandlers = array();
 
     /**
-     * @var array - Массив полей записи до изменения
+     * @var array Массив полей записи до изменения
      */
     protected static $oldRecord = array();
 
@@ -62,7 +62,7 @@ class NSDataManager extends Entity\DataManager
     /**
      * Добавление новой записи
      *
-     * @param array $data - Массив с данными новой записи
+     * @param array $data Массив с данными новой записи
      *
      * @return \Bitrix\Main\Entity\AddResult
      */
@@ -77,13 +77,12 @@ class NSDataManager extends Entity\DataManager
     /**
      * Установка обработчика события
      *
-     * @param $eventName - Наименование события
-     * @param $eventHandler - Обработчик события
+     * @param string $eventName Наименование события
+     * @param callable $eventHandler Обработчик события
      */
     protected static function handleEvent($eventName, $eventHandler)
     {
         $entity = static::getEntity();
-//        $eventType = $entity->getNamespace() . $entity->getName() . '::' . $eventName;
         $eventType = $entity->getName() . $eventName;
         if (!static::$eventHandlers[$eventType]) {
             $eventManager = Main\EventManager::getInstance();
@@ -104,8 +103,8 @@ class NSDataManager extends Entity\DataManager
     /**
      * Обновление записи
      *
-     * @param mixed $primary - ИД записи
-     * @param array $data - Массив полей записи
+     * @param mixed $primary ИД записи
+     * @param array $data Массив полей записи
      *
      * @return \Bitrix\Main\Entity\UpdateResult
      */
@@ -120,7 +119,7 @@ class NSDataManager extends Entity\DataManager
     /**
      * Удаление записи
      *
-     * @param mixed $primary - ИД записи
+     * @param mixed $primary ИД записи
      *
      * @return \Bitrix\Main\Entity\DeleteResult
      */

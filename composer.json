@@ -1,0 +1,30 @@
+{
+  "name": "nook-ru/nstree",
+  "description": "Позволяет работать с деревьями Nested Set через API ORM Битрикс",
+  "type": "library",
+  "license": "MIT",
+  "keywords": [
+    "bitrix",
+    "orm",
+    "nested set"
+  ],
+  "support": {
+    "issues": "https://github.com/nook-ru/nstree/issues",
+    "source": "https://github.com/nook-ru/nstree"
+  },
+  "authors": [
+    {
+      "name": "Дмитрий Козлов"
+    },
+    {
+      "name": "Marat Shamshutdinov",
+      "email": "marat@citrus-soft.ru"
+    }
+  ],
+  "require": {
+    "php": ">=5.3.0"
+  },
+  "autoload": {
+    "psr-4": {"Citrus\\NSTree\\": "lib/"}
+  }
+}
